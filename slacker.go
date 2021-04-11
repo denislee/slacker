@@ -25,6 +25,7 @@ const (
 	quoteMessageFormat  = ">_*Example:* %s_"
 	authorizedUsersOnly = "Authorized users only"
 	slackBotUser        = "USLACKBOT"
+	commandWord         = "!bot"
 )
 
 var (
@@ -193,7 +194,7 @@ func (s *Slacker) isFromBot(event *slack.MessageEvent) bool {
 
 func (s *Slacker) isBotMentioned(event *slack.MessageEvent) bool {
 	info := s.rtm.GetInfo()
-	return strings.Contains(event.Text, fmt.Sprintf(userMentionFormat, info.User.ID))
+	return strings.Contains(event.Text, commandWord)
 }
 
 func (s *Slacker) isDirectMessage(event *slack.MessageEvent) bool {
