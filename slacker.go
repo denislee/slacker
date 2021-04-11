@@ -154,7 +154,7 @@ func (s *Slacker) Listen(ctx context.Context) error {
 					continue
 				}
 
-				if !s.isBotMentioned(event) && !s.isDirectMessage(event) {
+				if !s.isBotMentioned(event) && s.isDirectMessage(event) {
 					continue
 				}
 				go s.handleMessage(ctx, event)
@@ -193,7 +193,6 @@ func (s *Slacker) isFromBot(event *slack.MessageEvent) bool {
 }
 
 func (s *Slacker) isBotMentioned(event *slack.MessageEvent) bool {
-	info := s.rtm.GetInfo()
 	return strings.Contains(event.Text, commandWord)
 }
 
